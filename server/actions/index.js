@@ -4,4 +4,6 @@ module.exports = function(app){
     app.actions.auth = require('./auth')(app);
     app.actions.users = require('./users')(app);
       app.actions.events = require('./events')(app);
+      app.actions.categories = require('./categories')(app);
+
 };

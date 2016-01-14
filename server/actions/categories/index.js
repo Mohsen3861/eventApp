@@ -3,8 +3,6 @@ module.exports = function(app){
         create: require('./create')(app),
         list: require('./list')(app),
         remove: require('./remove')(app),
-        show: require('./show')(app),
-        edit: require('./edit')(app)
-
+        show: require('./show')(app)
     };
 };

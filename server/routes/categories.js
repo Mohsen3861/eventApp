@@ -5,24 +5,19 @@ module.exports = function(app){
     router.post('/',
         bodyparser,
         app.middlewares.authenticated,
-        app.actions.events.create
+        app.actions.categories.create
     );
 
     router.get('/',
-        app.actions.events.list
+        app.actions.categories.list
     );
 
     router.get('/:id',
-        app.actions.events.show
+        app.actions.categories.show
     );
 
     router.delete('/:id',
-        app.actions.events.remove
-    );
-
-    router.put('/:id',
-        bodyparser,
-        app.actions.events.edit
+        app.actions.categories.remove
     );
 
     return router;

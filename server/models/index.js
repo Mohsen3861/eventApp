@@ -7,4 +7,6 @@ module.exports = function(app){
     app.models.Todo = require('./Todo')(app);
     app.models.User = require('./User')(app);
     app.models.Event = require('./Event')(app);
+    app.models.Category = require('./Category')(app);
+
 };
