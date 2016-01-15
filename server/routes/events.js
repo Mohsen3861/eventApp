@@ -25,5 +25,13 @@ module.exports = function(app){
         app.actions.events.edit
     );
 
+    router.put('/:id/addParticipant',
+        app.actions.events.addParticipant
+    );
+
+    router.put('/:id/removeParticipant',
+        app.actions.events.removeParticipant
+    );
+
     return router;
 };

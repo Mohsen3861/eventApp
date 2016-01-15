@@ -20,5 +20,11 @@ module.exports = function(app){
         app.actions.categories.remove
     );
 
+    router.put('/:id',
+        bodyparser,
+        app.actions.categories.edit
+    );
+
+
     return router;
 };

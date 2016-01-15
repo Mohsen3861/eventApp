@@ -4,7 +4,10 @@ module.exports = function(app){
         list: require('./list')(app),
         remove: require('./remove')(app),
         show: require('./show')(app),
-        edit: require('./edit')(app)
+        edit: require('./edit')(app),
+        addParticipant: require('./addParticipant')(app),
+        removeParticipant: require('./removeParticipant')(app)
+
 
     };
 };

@@ -1,7 +1,7 @@
 module.exports = function(app) {
     return function(req, res, next){
         app.models.Category.findOneAndRemove({
-                title: req.params.title
+                _id: req.params.id
             }, function(err, result){
                 if(err)
                     return res.status(500).send(err);

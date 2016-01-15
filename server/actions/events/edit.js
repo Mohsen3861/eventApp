@@ -12,15 +12,20 @@ module.exports = function(app) {
         res.json('no such event!')
       }
       else{
-        event.update(req.body, function(error, data){
-          if(error){
-            res.json(error);
-          }
-          else{
-            res.json(data);
-          }
+        if(req.session.userId == event.userId){
+          event.update(req.body, function(error, data){
+            if(error){
+              res.json(error);
+            }
+            else{
+              res.json(data);
+            }
 
-        });
+          });
+
+        }else{
+          res.status(401).send("you cant't modify this event , because you are not the creater of this event");
+        }
 
       }
     });
