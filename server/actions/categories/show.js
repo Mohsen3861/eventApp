@@ -3,7 +3,6 @@ module.exports = function(app) {
         app.models.Category.findById(req.params.id, function(err, instance){
             if (err)
                 return res.status(500).send(instance);
-
             res.send(instance);
         })
     }

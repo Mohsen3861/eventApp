@@ -25,6 +25,16 @@ module.exports = function(app){
         app.actions.categories.edit
     );
 
+    router.put('/:id/addEvent',
+        bodyparser,
+        app.actions.categories.addEvent
+    );
+
+    router.put('/:id/removeEvent',
+        bodyparser,
+        app.actions.categories.removeEvent
+    );
+
 
     return router;
 };
