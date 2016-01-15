@@ -28,25 +28,25 @@ module.exports = function(app) {
 
       }else{
         res.status(404).send('this event does not exist in this category');
-        }
+      }
     });
 
 
     var remove = function(ary, elem) {
-        var i = ary.indexOf(elem);
-        if (i >= 0) ary.splice(i, 1);
-        return ary;
+      var i = ary.indexOf(elem);
+      if (i >= 0) ary.splice(i, 1);
+      return ary;
     }
 
     function contains(a, obj) {
-    var i = a.length;
-    while (i--) {
-       if (a[i] == obj) {
-           return true;
-       }
+      var i = a.length;
+      while (i--) {
+        if (a[i] == obj) {
+          return true;
+        }
+      }
+      return false;
     }
-    return false;
-}
 
   }
 
