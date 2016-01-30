@@ -24,7 +24,10 @@ module.exports = function(app){
     category:{
       type : String,
       required : true
-    }
+    },
+    img: {
+      data: String,
+     }
     /*
     ,
     id:{

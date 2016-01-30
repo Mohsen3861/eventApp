@@ -8,6 +8,5 @@ module.exports = function(app){
         addParticipant: require('./addParticipant')(app),
         removeParticipant: require('./removeParticipant')(app)
 
-
     };
 };

@@ -12,6 +12,7 @@ module.exports = function(app) {
         res.json('no such category!')
       }
       else{
+        if(category.userId == req.session.userId){
         category.update(req.body, function(error, data){
           if(error){
             res.json(error);
@@ -21,6 +22,9 @@ module.exports = function(app) {
           }
 
         });
+      }else{
+        res.status(401).send("You are not the creator of this category");
+      }
 
       }
     });
