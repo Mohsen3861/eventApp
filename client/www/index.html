@@ -20,36 +20,23 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/ui-bootstrap-tpls-1.1.1.min.js"></script>
   </head>
   <body ng-app="starter">
-
-    <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Client</h1>
-      </ion-header-bar>
-      <ion-content>
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Username :</span>
-          <input type="text">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password :</span>
-          <input type="password">
-        </label>
-         <div>
-          <button class="button button-balanced">
-            Connexion
-          </button>
-
-          <button class="button button-royal">
-           Crate user
-        </button>
-        </div>
-
-
-      </div>
-      </ion-content>
-    </ion-pane>
+    <!--
+      The nav bar that will be updated as we navigate between views.
+    -->
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    <!--
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in the /templates folder (but you could also
+      have templates inline in this html file if you'd like).
+    -->
+    <ion-nav-view></ion-nav-view>
   </body>
 </html>
