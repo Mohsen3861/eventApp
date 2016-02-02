@@ -1,5 +1,5 @@
 var fs = require('fs');
-var path = "D:\\MnM\\photo3.jpg"
+var path = "D:\\MnM\\photdo3.jpg"
 module.exports = function(app) {
     return function(req, res, next){
       var allowCrossDomain = function(req, res) {
@@ -13,8 +13,9 @@ module.exports = function(app) {
       allowCrossDomain(req, res);
 
 var base64Image;
-fs.readFile(path, function(err, data) {
 
+fs.readFile(path, function(err, data) {
+if(data)
   base64Image = data.toString('base64');
   //console.log(base64Image);
   //console.log(base64Image);
