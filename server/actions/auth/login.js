@@ -1,3 +1,5 @@
+
+var md5 = require('md5');
 module.exports = function(app){
     return function(req, res, next){
       var allowCrossDomain = function(req, res) {
@@ -6,7 +8,7 @@ module.exports = function(app){
           res.header('Access-Control-Allow-Headers', 'Content-Type');
           res.header("Access-Control-Allow-Headers", "X-Requested-With");
       }
-
+      console.log("before : "+ req.body.password + "after : "+md5(req.body.password));
       allowCrossDomain(req, res);
         app.models.User.findOne({
             username: req.body.username,
