@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'ngMockE2E'])
+angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -23,74 +23,35 @@ angular.module('starter', ['ionic', 'ngMockE2E'])
   });
 })
 
-.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
+.config(function ($stateProvider, $urlRouterProvider,$httpProvider) {
+$httpProvider.defaults.withCredentials = true;
   $stateProvider
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'LoginCtrl'
   })
-  .state('main', {
-    url: '/',
-    abstract: true,
-    templateUrl: 'templates/main.html'
-  })
-  .state('main.dash', {
-    url: 'main/dash',
-    views: {
-        'dash-tab': {
-          templateUrl: 'templates/dashboard.html',
-          controller: 'DashCtrl'
-        }
-    }
-  })
-  .state('main.login', {
-    url: 'main/login',
-    views: {
-        'login-tab': {
-          templateUrl: 'templates/login.html',
-          controller: 'LoginCtrl'
-        }
-    }
+
+  .state('dash', {
+    url: '/dash',
+    templateUrl: 'templates/dashboard.html',
+    controller: 'DashCtrl'
   })
 
-  .state('main.create', {
-    url: 'main/create',
+  .state('createUser', {
+    url: '/createUser',
     views: {
-        'create-tab': {
+        'createUser': {
           templateUrl: 'templates/create.html',
           controller: 'CreateCtrl'
         }
     }
   })
-  .state('main.public', {
-    url: 'main/public',
-    views: {
-        'public-tab': {
-          templateUrl: 'templates/public.html'
-        }
-    }
-  })
 
-  .state('main.admin', {
-    url: 'main/admin',
-    views: {
-        'admin-tab': {
-          templateUrl: 'templates/admin.html'
-        }
-    },
-    data: {
-      authorizedRoles: [USER_ROLES.admin]
-    }
-  });
-  
-  // Thanks to Ben Noblet!
-  $urlRouterProvider.otherwise(function ($injector, $location) {
-    var $state = $injector.get("$state");
-    $state.go("main.dash");
-  });
+
+  $urlRouterProvider.otherwise('/login');
 })
 
-.run(function($httpBackend){
-  $httpBackend.whenGET(/templates\/\w+.*/).passThrough();
+.run(function(){
+
 })
