@@ -32,20 +32,17 @@ $httpProvider.defaults.withCredentials = true;
     controller: 'LoginCtrl'
   })
 
+ 
+  .state('inscription', {
+    url: '/inscription',
+    templateUrl: 'templates/inscription.html',
+    controller: 'InscriptionCtrl'
+  })
+
   .state('dash', {
     url: '/dash',
     templateUrl: 'templates/dashboard.html',
     controller: 'DashCtrl'
-  })
-
-  .state('createUser', {
-    url: '/createUser',
-    views: {
-        'createUser': {
-          templateUrl: 'templates/create.html',
-          controller: 'CreateCtrl'
-        }
-    }
   })
 
 
