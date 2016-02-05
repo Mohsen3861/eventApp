@@ -1,10 +1,13 @@
 angular.module('starter')
 //[]
 .controller('AppCtrl', function() {})
-.controller('LoginCtrl',function($scope,$http,$state) {
+
+.controller('EvenementCtrl', function() {})
+
+.controller('LoginCtrl',function($scope,$http,$state,$ionicPopup) {
 //console.log(md5.createHash( "messsage"|| ''));
 $scope.login = function(data){
-  data.password =CryptoJS.MD5(data.password).toString();
+  //data.password =CryptoJS.MD5(data.password).toString();
 
   $http.post("http://localhost:8080/api/auth/login",data).then(function (res){
 
@@ -40,6 +43,8 @@ $scope.signUp = function(){
     $scope.save = function(data){
       console.log("clicked");
         $http.post("http://localhost:8080/api/users",data).then(function (res){
+
+         //data.password =CryptoJS.MD5(data.password).toString();
 
         console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
 
