@@ -1,14 +1,15 @@
 angular.module('starter')
-
+//[]
 .controller('AppCtrl', function() {})
-.controller('LoginCtrl', function($scope,$http,$state) {
-
-
+.controller('LoginCtrl',function($scope,$http,$state) {
+//console.log(md5.createHash( "messsage"|| ''));
 $scope.login = function(data){
-
+  data.password =CryptoJS.MD5(data.password).toString();
+  
   $http.post("http://localhost:8080/api/auth/login",data).then(function (res){
 
-    console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
+
+   console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
 
     window.localStorage['userId'] = res.data._id;
     window.localStorage['nom'] = res.data.nom;
