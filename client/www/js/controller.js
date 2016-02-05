@@ -16,6 +16,10 @@ angular.module('starter')
 
   })
 }
+
+$scope.showSelectValue = function(mySelect) {
+    console.log(mySelect);
+}
 })
 
 .controller('EvenementCtrl', function($scope,$http,$state) {
