@@ -19,6 +19,11 @@ module.exports = function(app){
 
     );
 
+    router.get('/page/:num',
+        app.middlewares.authenticated,
+        app.actions.events.page
+    );
+
     router.get('/:id',
         app.middlewares.authenticated,
         app.actions.events.show

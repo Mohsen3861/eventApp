@@ -27,7 +27,11 @@ module.exports = function(app){
     },
     img: {
       data: String,
-     }
+    },
+    num:{
+      type: Number,
+      required: true
+    }
     /*
     ,
     id:{

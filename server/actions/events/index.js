@@ -6,7 +6,7 @@ module.exports = function(app){
         show: require('./show')(app),
         edit: require('./edit')(app),
         addParticipant: require('./addParticipant')(app),
-        removeParticipant: require('./removeParticipant')(app)
-
+        removeParticipant: require('./removeParticipant')(app),
+        page : require('./page')(app)
     };
 };
