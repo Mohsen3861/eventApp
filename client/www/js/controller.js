@@ -39,6 +39,7 @@ $scope.signUp = function(){
 .controller('InscriptionCtrl', function($scope,$state,$http){
     $scope.save = function(data){
       console.log("clicked");
+      data.password =CryptoJS.MD5(data.password).toString();
         $http.post("http://localhost:8080/api/users",data).then(function (res){
 
         console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
@@ -48,7 +49,6 @@ $scope.signUp = function(){
 
 
          console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
-
 
               window.localStorage['userId'] = res.data._id;
               window.localStorage['nom'] = res.data.nom;
