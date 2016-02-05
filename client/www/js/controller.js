@@ -1,6 +1,15 @@
 angular.module('starter')
 //[]
-.controller('AppCtrl', function() {})
+.controller('AppCtrl', function($scope, $ionicPopup) {
+
+
+
+})
+
+
+
+
+
 
 .controller('EvenementCtrl', function() {})
 
@@ -83,7 +92,7 @@ $scope.signUp = function(){
 
 
 
-.controller('DashCtrl', function($scope,$http,$state) {
+.controller('DashCtrl', function($scope,$http,$state,$ionicActionSheet) {
  $scope.username = window.localStorage['nom'] + " "+window.localStorage['prenom'];
 
  $http.get('http://localhost:8080/api/events').
@@ -105,5 +114,31 @@ error(function(data, status, headers, config) {
     console.error('err post' ,err);
   })
 }
+
+$scope.showActionsheet = function() {
+    
+    $ionicActionSheet.show({
+      titleText: 'Menu',
+      buttons: [
+        { text: '<i class="icon ion-ios-folder"></i> Créer un évènement' },
+        { text: '<i class="icon ion-ios-folder-outline"></i> Ajouter une category' },
+      ],
+      destructiveText: 'Delete',
+      cancelText: 'Cancel',
+      cancel: function() {
+        console.log('CANCELLED');
+      },
+      buttonClicked: function(index) {
+        console.log('BUTTON CLICKED', index);
+        return true;
+      },
+      destructiveButtonClicked: function() {
+        console.log('DESTRUCT');
+        return true;
+      }
+    });
+  };
+
+
 
 });

@@ -46,7 +46,6 @@ $httpProvider.defaults.withCredentials = true;
     controller: 'EvenementCtrl'
   })
 
-
   .state('dash', {
     url: '/dash',
     templateUrl: 'templates/dashboard.html',
