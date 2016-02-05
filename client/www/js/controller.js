@@ -1,17 +1,9 @@
 angular.module('starter')
 //[]
-.controller('AppCtrl', function($scope, $ionicPopup) {
-
-
-
-})
-
-
-
-
-
-
+.controller('AppCtrl', function($scope, $ionicPopup) {})
 .controller('EvenementCtrl', function() {})
+.controller('CategorieCtrl', function() {})
+
 
 .controller('LoginCtrl',function($scope,$http,$state,$ionicPopup) {
 //console.log(md5.createHash( "messsage"|| ''));
@@ -115,13 +107,44 @@ error(function(data, status, headers, config) {
   })
 }
 
+$scope.saveEvent = function(data){
+  $http.post("hhttp://localhost:8080/api/events",data).then(function (res){
+    $scope.events = data;
+
+    console.log("eventsCréer " + data[0].desc);
+   
+        $state.go('dash')
+},function(err){
+
+    console.error('err post' ,err);
+  })
+}
+
+$scope.saveCategorie = function(data){
+ $http.post("http://localhost:8080/api/categories",data).then(function (res){
+   //console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
+        //window.localStorage['userId'] = res.data._id;
+        //window.localStorage['nom'] = res.data.nom;
+        //window.localStorage['prenom'] = res.data.prenom;
+        $scope.categories = data;
+        console.log("categories " + data[0].title);
+
+        $state.go('dash')
+},function(err){
+    console.error('err post' ,err);
+  })
+}
+
+
+
+
 $scope.showActionsheet = function() {
     
     $ionicActionSheet.show({
       titleText: 'Menu',
       buttons: [
         { text: '<i class="icon ion-ios-folder"></i> Créer un évènement' },
-        { text: '<i class="icon ion-ios-folder-outline"></i> Ajouter une category' },
+        { text: '<i class="icon ion-ios-folder-outline"></i> Ajouter une catégorie' },
       ],
       destructiveText: 'Delete',
       cancelText: 'Cancel',
@@ -129,6 +152,14 @@ $scope.showActionsheet = function() {
         console.log('CANCELLED');
       },
       buttonClicked: function(index) {
+        if(index=='0'){
+          $state.go('evenement')
+        }
+
+        if(index=='1'){
+          $state.go('categorie')
+        }
+
         console.log('BUTTON CLICKED', index);
         return true;
       },

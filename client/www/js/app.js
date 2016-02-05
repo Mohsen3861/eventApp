@@ -40,6 +40,12 @@ $httpProvider.defaults.withCredentials = true;
     controller: 'InscriptionCtrl'
   })
 
+  .state('categorie', {
+    url: '/categorie',
+    templateUrl: 'templates/categorie.html',
+    controller: 'CategorieCtrl'
+  })
+
   .state('evenement', {
     url: '/evenement',
     templateUrl: 'templates/evenement.html',
