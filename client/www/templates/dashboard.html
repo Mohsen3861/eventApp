@@ -5,19 +5,32 @@
 
   <ion-content class="padding">
     <div class="row"><div class="col text-center">
-      <h3 class="title">Welcome {{username}}!</h3>
-      This could be your Dashboard.
+      <h3 class="title">Bienvenue {{username}}!</h3>
+      Voici la liste des eventements
       <br><br><br>
 
-      <div class="list">
-        <a class="item item-thumbnail-left" href="#">
-          <img src="">
-          <h2>Toto</h2>
-          <p>Nine Inch Nails </p>
-        </a>
+      <div class="list card" ng-repeat="event in events">
+        <div class="item item-avatar">
+            <img src="img/profile.png">
+            <h2>{{event.title}}</h2>
+            <p>{{event.category}}</p>
+          </div>
+
+          <div class="item item-body">
+            <h2>{{event.date}}</h2>
+            <img class="full-image" src="img/event.png">
+            <p>
+            {{event.desc}}
+            </p>
+            <p>
+              <a href="#" class="subdued">participer</a>
+              <a href="#" class="subdued">{{event.particips.length}} participant(s)</a>
+            </p>
+          </div>
       </div>
 
-       
+
+
     </div></div>
   </ion-content>
 </ion-view>
