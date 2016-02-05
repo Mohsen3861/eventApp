@@ -2,18 +2,36 @@ angular.module('starter')
 //[]
 .controller('AppCtrl', function($scope, $ionicPopup) {})
 
-.controller('EvenementCtrl', function($scope,$http,$state) {
-    
 
+.controller('CategorieCtrl', function($scope,$http,$state) {
+    $scope.saveCategorie = function(data){
+      console.log("Categorie");
+      $http.post("http://localhost:8080/api/categories",data).then(function (res){
+      console.log("user infos "+res.data.title);
+      $state.go('dash')
+        
+},function(err){
 
+    console.error('err post' ,err);
 
-
-
-
-
+  })
+}
 })
-.controller('CategorieCtrl', function() {})
 
+.controller('EvenementCtrl', function($scope,$http,$state) {
+    $scope.saveEvent = function(data){
+      console.log("BadiniEvents");
+      $http.post("http://localhost:8080/api/events",data).then(function (res){
+      console.log("user infos "+res.data.title);
+      $state.go('dash')
+        
+},function(err){
+
+    console.error('err post' ,err);
+
+  })
+}
+})
 
 .controller('LoginCtrl',function($scope,$http,$state,$ionicPopup) {
 //console.log(md5.createHash( "messsage"|| ''));
