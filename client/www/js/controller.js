@@ -65,33 +65,46 @@ $scope.signUp = function(){
 
 })
 
-/*.controller('DashCtrl', function($scope,$http,$state) {
-    $http.post("http://localhost:8080/api/events").then(function (res){
-        window.localStorage['title'] = res.data.title;
-        window.localStorage['desc'] = res.data.desc;
-        console.log("user infos "+res.data.title);
 
-  },function(err){
-    console.error('err events' ,err);
-  })
-})*/
-
-
-
-.controller('DashCtrl', function($scope,$http,$state) {
+.controller('DashCtrl', function($scope,$http,$state, $ionicScrollDelegate,$ionicNavBarDelegate) {
+  var page = 0;
+$ionicNavBarDelegate.showBackButton(false);
  $scope.username = window.localStorage['nom'] + " "+window.localStorage['prenom'];
 
- $http.get('http://localhost:8080/api/events').
-success(function(data, status, headers, config) {
 
- $scope.events = data;
+$scope.nextPage = function(page){
+  $http.get('http://localhost:8080/api/events/page/'+page).
+ success(function(data, status, headers, config) {
 
- console.log("events " + data[0].particips.length);
-}).
-error(function(data, status, headers, config) {
- console.error('err events' ,err);
+  $scope.events = data;
 
-});
+  console.log("events " + data[0].particips.length);
+ }).
+ error(function(data, status, headers, config) {
+  console.error('err events' ,err);
+
+ });
+}
+
+ $scope.nextPage(page);
+
+$scope.nextClick = function(){
+  page++;
+  $scope.nextPage(page);
+  $ionicScrollDelegate.scrollTop();
+
+}
+$scope.previeusClick = function(){
+  page--;
+  $scope.nextPage(page);
+  $ionicScrollDelegate.scrollTop();
+
+}
+$scope.details = function(event){
+$ionicNavBarDelegate.showBackButton(true);
+$state.go('event',{event : event});
+
+}
 
     $scope.logout = function(data){
     $http.post("http://localhost:8080/api/auth/logout").then(function (res){
@@ -100,5 +113,54 @@ error(function(data, status, headers, config) {
     console.error('err post' ,err);
   })
 }
+
+
+})
+
+
+.controller('EventCtrl', function($scope,$http,$state, $ionicScrollDelegate,$stateParams) {
+
+
+$scope.event = $stateParams.event;
+var userId =   window.localStorage['userId'];
+
+var particips = false;
+for(var i=0;i<$scope.event.particips.length;i++){
+    if($scope.event.particips[i]===userId){
+        particips=true;
+    }
+}
+
+if(particips)
+document.getElementById('button').innerHTML = "je ne participe plus";
+
+console.log(event.title);
+  $scope.participer = function(event){
+
+if(particips==false){
+    $http.put("http://localhost:8080/api/events/"+event._id+"/addParticipant").then(function (res){
+      console.log(event._id );
+      console.log(event.title );
+      $state.go($state.current, {}, {reload: true});
+
+
+    },function(err){
+    console.error('err post' ,err);
+  })
+}else{
+  $http.put("http://localhost:8080/api/events/"+event._id+"/removeParticipant").then(function (res){
+    console.log(event._id );
+    console.log(event.title );
+    $state.go($state.current, {}, {reload: true});
+
+
+  },function(err){
+  console.error('err post' ,err);
+})
+}
+
+  }
+
+
 
 });

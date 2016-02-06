@@ -1,13 +1,18 @@
-<ion-view view-title="Dashboard" name="dashboard-view" cache-view="false">
+<ion-view view-title="Accueil" name="dashboard-view" cache-view="false">
   <ion-nav-buttons side="right">
-    <button class="button icon-left ion-log-out button-stable" ng-click="logout()">Déconnexion</button>
+    <button class="button icon-left ion-log-out button-assertive" ng-click="logout()"></button>
   </ion-nav-buttons>
 
   <ion-content class="padding">
     <div class="row"><div class="col text-center">
+
       <h3 class="title">Bienvenue {{username}}!</h3>
       Voici la liste des eventements
-      <br><br><br>
+
+      <br><br>
+
+
+
 
       <div class="list card" ng-repeat="event in events">
         <div class="item item-avatar">
@@ -18,28 +23,43 @@
 
           <div class="item item-body">
             <h2>{{event.date}}</h2>
-            <img class="full-image" src="img/event.png">
+            <img class="full-image" src="img/event.png" style="height:100px; width:100px">
             <p>
             {{event.desc}}
             </p>
+            <a href="#" class="subdued">{{event.particips.length}} participant(s)</a>
+
             <p>
-              <a href="#" class="subdued">participer</a>
-              <a href="#" class="subdued">{{event.particips.length}} participant(s)</a>
+
+              <button class="button button-small button-calm" ng-click="details(event)" style="float:center;width:45%">
+                En savoir plus
+              </button>
             </p>
+
           </div>
       </div>
 
+      <p >
+        <button class="button button button-energized" ng-click="previeusClick()" style="float:left;width:45%" >
+          Précédente
+        </button>
+            <button class="button button button-positive" ng-click="nextClick()" style="float:right;width:45%" >
+              Suivante
+            </button>
+
+      </p>
 
 
     </div></div>
+      <br>  <br>
   </ion-content>
+
   <div class="float-button">
   <span class="height-fix">
     <a ui-sref="add-trip" class="content">
-
         <img src="img/floating.png" style="width:50px;">
-
     </a>
   </span>
-</div>
+  </div>
+
 </ion-view>

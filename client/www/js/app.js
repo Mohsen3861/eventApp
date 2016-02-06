@@ -46,6 +46,13 @@ $httpProvider.defaults.withCredentials = true;
     controller: 'DashCtrl'
   })
 
+  .state('event', {
+    url: '/event',
+    templateUrl: 'templates/event.html',
+    controller: 'EventCtrl',
+    params: {event: null}
+  })
+
 
   $urlRouterProvider.otherwise('/login');
 })

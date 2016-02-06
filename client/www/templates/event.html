@@ -1,0 +1,31 @@
+<ion-view view-title={{event.title}} name="dashboard-view">
+  <ion-content class="padding">
+    <div class="row"><div class="col text-center">
+
+    <div class="list card">
+      <div class="item item-avatar">
+          <img src="img/profile.png">
+          <h2>{{event.title}}</h2>
+          <p>{{event.category}}</p>
+        </div>
+
+        <div class="item item-body">
+          <h2>{{event.date}}</h2>
+          <img class="full-image" src="img/event.png" >
+          <p>
+          {{event.desc}}
+          </p>
+          <a href="#" class="subdued">{{event.particips.length}} participant(s)</a>
+
+          <p>
+
+            <button id="button" class="button button-block  button-balanced" ng-click="participer(event)" style="float:center;">
+              Participer
+            </button>
+          </p>
+
+        </div>
+    </div>
+
+  </ion-content>
+</ion-view>
