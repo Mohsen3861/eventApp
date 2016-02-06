@@ -10,7 +10,7 @@ module.exports = function(app) {
     allowCrossDomain(req, res);
 
     var id = req.params.id;
-    console.log("updated particips: "+req.params.id );
+    console.log("updated particips: "+req.session.userId );
 
     app.models.Event.findOne({ _id: req.params.id }, function(error, event){
       if(error){
@@ -20,21 +20,36 @@ module.exports = function(app) {
         res.json('no such event!')
       }
       else{
-        event.particips.push(req.session.userId);
-        console.log("add particips : "+event.particips);
+        if(contains(event.particips,req.session.userId)==false){
+          event.particips.push(req.session.userId);
+          console.log("add particips : "+event.particips);
 
-        event.update({particips:event.particips},function(error, data){
-          if(error){
-            res.json(error);
-          }
-          else{
-            res.json(data);
-          }
+          event.update({particips:event.particips},function(error, data){
+            if(error){
+              res.json(error);
+            }
+            else{
+              res.json(data);
+            }
 
-        });
+          });
+        }else{
+          res.send("you participe already");
+        }
+
 
       }
     });
 
   }
+}
+
+function contains(a, obj) {
+    var i = a.length;
+    while (i--) {
+       if (a[i] == obj) {
+           return true;
+       }
+    }
+    return false;
 }
