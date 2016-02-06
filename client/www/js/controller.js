@@ -1,10 +1,46 @@
 angular.module('starter')
 //[]
-.controller('AppCtrl', function() {})
-.controller('LoginCtrl',function($scope,$http,$state) {
+.controller('AppCtrl', function($scope, $ionicPopup) {})
+
+
+.controller('CategorieCtrl', function($scope,$http,$state) {
+    $scope.saveCategorie = function(data){
+      console.log("Categorie");
+      $http.post("http://localhost:8080/api/categories",data).then(function (res){
+      console.log("user infos "+res.data.title);
+      $state.go('dash')
+        
+},function(err){
+
+    console.error('err post' ,err);
+
+  })
+}
+
+$scope.showSelectValue = function(mySelect) {
+    console.log(mySelect);
+}
+})
+
+.controller('EvenementCtrl', function($scope,$http,$state) {
+    $scope.saveEvent = function(data){
+      console.log("BadiniEvents");
+      $http.post("http://localhost:8080/api/events",data).then(function (res){
+      console.log("user infos "+res.data.title);
+      $state.go('dash')
+        
+},function(err){
+
+    console.error('err post' ,err);
+
+  })
+}
+})
+
+.controller('LoginCtrl',function($scope,$http,$state,$ionicPopup) {
 //console.log(md5.createHash( "messsage"|| ''));
 $scope.login = function(data){
-  data.password =CryptoJS.MD5(data.password).toString();
+  //data.password =CryptoJS.MD5(data.password).toString();
 
   $http.post("http://localhost:8080/api/auth/login",data).then(function (res){
 
@@ -41,6 +77,8 @@ $scope.signUp = function(){
       console.log("clicked");
       data.password =CryptoJS.MD5(data.password).toString();
         $http.post("http://localhost:8080/api/users",data).then(function (res){
+
+         //data.password =CryptoJS.MD5(data.password).toString();
 
         console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
 
@@ -112,10 +150,60 @@ $state.go('event',{event : event});
   },function(err){
     console.error('err post' ,err);
   })
+
+$scope.saveEvent = function(data){
+  $http.post("hhttp://localhost:8080/api/events",data).then(function (res){
+    $scope.events = data;
+
+    console.log("eventsCréer " + data[0].desc);
+   
+        $state.go('dash')
+},function(err){
+
+    console.error('err post' ,err);
+  })
+}
+
+$scope.saveCategorie = function(data){
+    console.log("Badini");
+    $http.post("http://localhost:8080/api/categories",data).then(function (res){
+    $state.go('dash')
+},function(err){
+    console.error('err post' ,err);
+  })
 }
 
 
-})
+$scope.showActionsheet = function() {
+    
+    $ionicActionSheet.show({
+      titleText: 'Menu',
+      buttons: [
+        { text: '<i class="icon ion-ios-folder"></i> Créer un évènement' },
+        { text: '<i class="icon ion-ios-folder-outline"></i> Ajouter une catégorie' },
+      ],
+      destructiveText: 'Delete',
+      cancelText: 'Cancel',
+      cancel: function() {
+        console.log('CANCELLED');
+      },
+      buttonClicked: function(index) {
+        if(index=='0'){
+          $state.go('evenement')
+        }
+
+        if(index=='1'){
+          $state.go('categorie')
+        }
+
+        console.log('BUTTON CLICKED', index);
+        return true;
+      },
+      destructiveButtonClicked: function() {
+        console.log('DESTRUCT');
+        return true;
+      }
+}
 
 
 .controller('EventCtrl', function($scope,$http,$state, $ionicScrollDelegate,$stateParams) {
@@ -160,6 +248,10 @@ if(particips==false){
 }
 
   }
+
+
+});
+  };
 
 
 
