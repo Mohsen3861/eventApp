@@ -1,0 +1,30 @@
+<ion-view view-title="Evenement" name="evenement-view" cache-view="false">
+  <ion-content class="padding" >
+	 <div class="list list-inset">
+
+          <label class="item item-input">
+           <input type="text" placeholder="Titre"  ng-model="data.title">
+          </label>
+
+          <label class="item item-input large">
+            <input type="text" placeholder="Description"  ng-model="data.desc">
+          </label>
+
+          <label class="item item-input">
+             <input type="date" placeholder="Date"  ng-model="data.date">
+          </label>
+
+          <label class="item item-input">
+             <input type="text" placeholder="Category"  ng-model="data.category">
+          </label>
+
+          <label class="item item-input">
+            <input type="file" placeholder="Image"   ng-model="data.image">
+          </label>
+
+          <button class="button button-block button-positive" ng-click="saveEvent(data)">Créer un évènement</button>
+  </div>
+      
+
+  </ion-content>
+</ion-view>
