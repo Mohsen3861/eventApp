@@ -1,8 +1,10 @@
-
 <ion-view view-title="Accueil" name="dashboard-view" cache-view="false">
   <ion-nav-buttons side="right">
-
     <button class="button icon-left ion-log-out button-assertive" ng-click="logout()"></button>
+  </ion-nav-buttons>
+
+  <ion-nav-buttons side="left">
+    <button class="button icon-left ion-funnel button-royal" ng-click=""></button>
   </ion-nav-buttons>
 
   <ion-content class="padding">
@@ -10,7 +12,6 @@
 
       <h3 class="title">Bienvenue {{username}}!</h3>
       Voici la liste des eventements
-
 
       <br><br>
 
@@ -26,7 +27,6 @@
 
           <div class="item item-body">
             <h2>{{event.date}}</h2>
-
             <img class="full-image" src="img/event.png" style="height:100px; width:100px">
             <p>
             {{event.desc}}
@@ -34,7 +34,6 @@
             <a href="#" class="subdued">{{event.particips.length}} participant(s)</a>
 
             <p>
-
 
               <button class="button button-small button-calm" ng-click="details(event)" style="float:center;width:45%">
                 En savoir plus
@@ -62,8 +61,8 @@
   <div class="float-button">
   <span class="height-fix">
 
-    <a name="add-trip" class="content">
-        <button class="button" ng-click="showActionsheet()"><img src="img/floating.png" style="width:50px;"></button>
+    <a  class="content">
+        <img src="img/floating.png" style="width:50px;" ng-click="showActionsheet()">
     </a>
   </span>
   </div>

@@ -11,7 +11,7 @@ module.exports = function(app) {
       allowCrossDomain(req, res);
       console.log(page * itemsPerPage +"  "+((page * itemsPerPage)+itemsPerPage));
     	return app.models.Event
-      .find({ "num": {$gte: (page * itemsPerPage)+1 , $lte:((page * itemsPerPage)+itemsPerPage)} },function(err, instances){
+      .find().sort({updatedAt: -1}).skip(itemsPerPage * page).limit(itemsPerPage).exec(function(err, instances){
     			if(err)
     				return res.status(500).send(err);
 
@@ -20,3 +20,4 @@ module.exports = function(app) {
     }
 };
 //$gte: req.params.num * itemsPerPage, $lte: ((req.params.num * itemsPerPage)+itemsPerPage)}
+//.find({ "num": {$gte: (page * itemsPerPage)+1 , $lte:((page * itemsPerPage)+itemsPerPage)} }).sort({updatedAt: -1}).exec(function(err, instances){

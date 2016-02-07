@@ -1,15 +1,20 @@
-<ion-view view-title={{event.title}} name="dashboard-view">
+<ion-view view-title={{event.title}} name="dashboard-view" cache-view="false">
   <ion-content class="padding">
     <div class="row"><div class="col text-center">
 
     <div class="list card">
+
       <div class="item item-avatar">
           <img src="img/profile.png">
           <h2>{{event.title}}</h2>
           <p>{{event.category}}</p>
+
+
         </div>
 
         <div class="item item-body">
+            <div id="buttonDelete" class="icon ion-android-delete" style="float:right" ng-click="delete()"></div>
+            <div id="buttonEdit" class="icon ion-edit" style="float:left" ng-click="edit()"></div>
           <h2>{{event.date}}</h2>
           <img class="full-image" src="img/event.png" >
           <p>
