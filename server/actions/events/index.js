@@ -7,6 +7,10 @@ module.exports = function(app){
         edit: require('./edit')(app),
         addParticipant: require('./addParticipant')(app),
         removeParticipant: require('./removeParticipant')(app),
-        page : require('./page')(app)
+        page : require('./page')(app),
+        past : require('./past')(app),
+        future : require('./future')(app)
+
+
     };
 };

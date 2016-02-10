@@ -24,6 +24,16 @@ module.exports = function(app){
         app.actions.events.page
     );
 
+    router.get('/page/past/:num',
+        app.middlewares.authenticated,
+        app.actions.events.past
+    );
+    router.get('/page/future/:num',
+        app.middlewares.authenticated,
+        app.actions.events.future
+    );
+
+
     router.get('/:id',
         app.middlewares.authenticated,
         app.actions.events.show

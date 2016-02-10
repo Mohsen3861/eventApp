@@ -1,0 +1,35 @@
+<ion-view view-title="Filtrer" name="dashboard-view" cache-view="false">
+  <ion-content class="padding">
+
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Date
+    </div>
+    <select>
+      <option>Passé </option>
+      <option selected>A venir</option>
+      <option>All</option>
+    </select>
+  </label>
+
+  <label class="item">
+    Categorie :
+    <i>{{data.cat}}</i>
+  <button style="float:right"  class="button button-positive" modal-select="" ng-model="data.cat" options="selectables" modal-title="Choisir une categorie" has-search="true">
+      Choisir
+      <div class="option">
+        {{option}}
+      </div>
+    </button>
+    </label>
+<br><br>
+    <button class="button button-block button-positive" ng-click="apply()">
+      Appliquer
+</button>
+
+
+</ion-content>
+
+
+
+</ion-view>

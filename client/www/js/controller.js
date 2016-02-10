@@ -3,6 +3,44 @@ angular.module('starter')
 .controller('AppCtrl', function($scope, $ionicPopup) {})
 
 
+.controller('FilterCtrl', function($scope, $ionicPopup,$ionicNavBarDelegate,$http) {
+  console.log("in filter");
+  $ionicNavBarDelegate.showBackButton(true);
+
+  var categories = [];
+  $scope.selectables = [];
+
+$scope.data ={
+  cat : "null"
+}
+  $http.get("http://localhost:8080/api/categories").then(function (res){
+    console.log("user infos "+res.data.title);
+
+    for (var i = 0; i < res.data.length; i++) {
+      categories[i] = res.data[i].title;
+
+    }
+    $scope.selectables= categories;
+    console.log(categories[1]);
+  },function(err){
+    console.error('err post' ,err);
+  })
+
+  $scope.apply = function(cat) {
+    var results = {
+      cat:$scope.data.cat,
+      date : null
+    }
+    console.log(results.cat);
+
+  }
+
+
+
+
+})
+
+
 .controller('CategorieCtrl', function($scope,$http,$state,  $ionicNavBarDelegate ,$ionicPopup) {
   $ionicNavBarDelegate.showBackButton(true);
   $scope.categories = [];
@@ -91,7 +129,7 @@ console.log(cat);
 
 })
 
-.controller('EvenementCtrl', function($scope,$http,$state,$stateParams,$ionicNavBarDelegate) {
+.controller('EvenementCtrl', function($scope,$http,$state,$stateParams,$ionicNavBarDelegate,$filter) {
 
   $scope.event = $stateParams.event;
   console.log(event.title);
@@ -116,6 +154,10 @@ console.log(cat);
 
 
   $scope.saveEvent = function(data){
+    console.log(data.date);
+  data.date =   $filter("date")(data.date, 'yyyy-MM-dd');
+  console.log(data.date);
+
     if($stateParams.event == null){
       $http.post("http://localhost:8080/api/events",data).then(function (res){
         console.log("user infos "+res.data.title);
@@ -249,6 +291,10 @@ console.log(cat);
     },function(err){
       console.error('err post' ,err);
     })
+  }
+
+  $scope.filter = function(){
+      $state.go('filter');
   }
 
   $scope.saveEvent = function(data){

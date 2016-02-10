@@ -66,6 +66,13 @@ $httpProvider.defaults.withCredentials = true;
     params: {event: null}
   })
 
+  .state('filter', {
+    url: '/filter',
+    templateUrl: 'templates/filter.html',
+    controller: 'FilterCtrl',
+    params: {data: null}
+  })
+
 
   $urlRouterProvider.otherwise('/login');
 })
