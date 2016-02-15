@@ -1,5 +1,7 @@
 var itemsPerPage = 5;
 module.exports = function(app) {
+
+
     return function(req, res, next){
       var allowCrossDomain = function(req, res) {
         res.header('Access-Control-Allow-Origin','http://localhost:8100');
@@ -9,12 +11,11 @@ module.exports = function(app) {
       }
       var page = req.params.num;
       allowCrossDomain(req, res);
-      console.log(page * itemsPerPage +"  "+((page * itemsPerPage)+itemsPerPage));
 
-      var date = new Date().toISOString();
+      var category =req.body.category;
 
-    	return app.models.Event
-      .find({"date": { $lt: date}}).sort({updatedAt: -1}).skip(itemsPerPage * page).limit(itemsPerPage).exec(function(err, instances){
+      return app.models.Event
+      .find({"category": category}).sort({updatedAt: -1}).skip(itemsPerPage * page).limit(itemsPerPage).exec(function(err, instances){
     			if(err)
     				return res.status(500).send(err);
 

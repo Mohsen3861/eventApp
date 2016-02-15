@@ -3,7 +3,7 @@ angular.module('starter')
 .controller('AppCtrl', function($scope, $ionicPopup) {})
 
 
-.controller('FilterCtrl', function($scope, $ionicPopup,$ionicNavBarDelegate,$http) {
+.controller('FilterCtrl', function($scope, $ionicPopup,$ionicNavBarDelegate,$http,$state) {
   console.log("in filter");
   $ionicNavBarDelegate.showBackButton(true);
 
@@ -13,12 +13,17 @@ angular.module('starter')
 $scope.data ={
   cat : "null"
 }
+var date;
+$scope.editSelectValue = function(mySelect){
+
+  date = mySelect;
+}
+
   $http.get("http://localhost:8080/api/categories").then(function (res){
     console.log("user infos "+res.data.title);
 
     for (var i = 0; i < res.data.length; i++) {
       categories[i] = res.data[i].title;
-
     }
     $scope.selectables= categories;
     console.log(categories[1]);
@@ -26,18 +31,40 @@ $scope.data ={
     console.error('err post' ,err);
   })
 
+
+  var url = null;
   $scope.apply = function(cat) {
     var results = {
       cat:$scope.data.cat,
-      date : null
+      date : date,
+      url :''
     }
-    console.log(results.cat);
+    if(results.date != null){
 
-  }
+      console.log("date choosen is : "+results.date );
+      switch(results.date) {
+          case "All":
+          results.url = 'http://localhost:8080/api/events/page/';
+              break;
+          case "A venir":
+          results.url = 'http://localhost:8080/api/events/page/future/';
+              break;
+          case "Passé":
+          results.url = 'http://localhost:8080/api/events/page/past/';
+              break;
+      }
+    }else{
+      results. url ='http://localhost:8080/api/events/page/category/';
+    }
 
 
 
 
+    console.log(results.date);
+
+   $state.go('dash',{date : results.date,cat : results.cat , url : results.url});
+
+}
 })
 
 
@@ -244,37 +271,73 @@ console.log(cat);
 })
 
 
-.controller('DashCtrl', function($scope,$http,$state, $ionicScrollDelegate,$ionicNavBarDelegate,$ionicActionSheet) {
-  var page = 0;
+.controller('DashCtrl', function($scope,$http,$state, $ionicScrollDelegate,$ionicNavBarDelegate,$ionicActionSheet,$stateParams) {
+  $scope.page = 0;
   $ionicNavBarDelegate.showBackButton(false);
   $scope.username = window.localStorage['nom'] + " "+window.localStorage['prenom'];
 
 
+
+
+var filter = {
+  cat: $stateParams.cat,
+  date :  $stateParams.date,
+  url : $stateParams.url
+}
+
+if(filter.url ==null){
+  url = 'http://localhost:8080/api/events/page/';
+}else{
+  url = filter.url;
+}
+
+
   $scope.nextPage = function(page){
-    $http.get('http://localhost:8080/api/events/page/'+page).
-    success(function(data, status, headers, config) {
+    console.log("filter url is : " ,url+page);
+    if(filter.date != null || filter.url==null){
+      $http.get(url+page).
+      success(function(data, status, headers, config) {
 
-      $scope.events = data;
+        $scope.events = data;
 
 
-      console.log("events " + data[0].particips.length);
-    }).error(function(data, status, headers, config) {
-      console.error('err events' ,err);
+        console.log("events " + data[0].particips.length);
+      }).error(function(data,err) {
+        console.error('err events' ,err);
 
-    });
+      });
+    }
+    else if(filter.cat != null){
+      var datas= {
+        category : filter.cat
+      }
+      $http.post(url+page,datas).
+      success(function(data, status, headers, config) {
+
+        $scope.events = data;
+
+
+        console.log("events " + data[0].particips.length);
+      }).error(function(data,err) {
+        console.error('err events' ,err);
+
+      });
+    }
   }
 
-  $scope.nextPage(page);
+
+
+  $scope.nextPage($scope.page);
 
   $scope.nextClick = function(){
-    page++;
-    $scope.nextPage(page);
+$scope.page ++;
+    $scope.nextPage($scope.page);
     $ionicScrollDelegate.scrollTop();
 
   }
   $scope.previeusClick = function(){
-    page--;
-    $scope.nextPage(page);
+    $scope.page --;
+    $scope.nextPage($scope.page);
     $ionicScrollDelegate.scrollTop();
 
   }
@@ -409,9 +472,9 @@ console.log(cat);
   }
 
 
-  $scope.delete = function(){
-    console.log("delete clicked");
-    $http.delete("http://localhost:8080/api/events/"+event._id).then(function (res){
+  $scope.delete = function(id){
+    console.log("delete clicked event id is :"+id);
+    $http.delete("http://localhost:8080/api/events/"+id).then(function (res){
       console.log("event deleted");
       $state.go('dash');
 

@@ -1,8 +1,6 @@
 var itemsPerPage = 5;
 module.exports = function(app) {
 
-  var datetime = new Date();
-console.log(datetime);
 
     return function(req, res, next){
       var allowCrossDomain = function(req, res) {
@@ -13,9 +11,11 @@ console.log(datetime);
       }
       var page = req.params.num;
       allowCrossDomain(req, res);
-      console.log(page * itemsPerPage +"  "+((page * itemsPerPage)+itemsPerPage));
+
+      var date = new Date().toISOString();
+
     	return app.models.Event
-      .find().sort({updatedAt: -1}).skip(itemsPerPage * page).limit(itemsPerPage).exec(function(err, instances){
+      .find({"date": { $gt: date}}).sort({updatedAt: -1}).skip(itemsPerPage * page).limit(itemsPerPage).exec(function(err, instances){
     			if(err)
     				return res.status(500).send(err);
 

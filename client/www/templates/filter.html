@@ -5,8 +5,8 @@
     <div class="input-label">
       Date
     </div>
-    <select>
-      <option>Passé </option>
+    <select ng-model="mySelect" ng-change="editSelectValue(mySelect)">
+      <option>Passé</option>
       <option selected>A venir</option>
       <option>All</option>
     </select>

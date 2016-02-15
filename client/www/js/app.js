@@ -56,7 +56,9 @@ $httpProvider.defaults.withCredentials = true;
   .state('dash', {
     url: '/dash',
     templateUrl: 'templates/dashboard.html',
-    controller: 'DashCtrl'
+    controller: 'DashCtrl',
+    params: {date: null,cat : null , url : null}
+
   })
 
   .state('event', {

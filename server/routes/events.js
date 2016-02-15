@@ -33,6 +33,12 @@ module.exports = function(app){
         app.actions.events.future
     );
 
+    router.post('/page/category/:num',
+        app.middlewares.authenticated,
+        bodyparser,
+        app.actions.events.eventCat
+
+    );
 
     router.get('/:id',
         app.middlewares.authenticated,

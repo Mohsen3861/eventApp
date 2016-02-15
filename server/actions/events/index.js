@@ -9,7 +9,9 @@ module.exports = function(app){
         removeParticipant: require('./removeParticipant')(app),
         page : require('./page')(app),
         past : require('./past')(app),
-        future : require('./future')(app)
+        future : require('./future')(app),
+        eventCat : require('./eventCat')(app)
+
 
 
     };
