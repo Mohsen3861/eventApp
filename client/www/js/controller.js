@@ -19,7 +19,7 @@ $scope.editSelectValue = function(mySelect){
   date = mySelect;
 }
 
-  $http.get("http://"+$rootScope.ip+":8080/api/categories").then(function (res){
+  $http.get("http://"+$rootScope.ip+"/api/categories").then(function (res){
     console.log("user infos "+res.data.title);
 
     for (var i = 0; i < res.data.length; i++) {
@@ -44,17 +44,17 @@ $scope.editSelectValue = function(mySelect){
       console.log("date choosen is : "+results.date );
       switch(results.date) {
           case "All":
-          results.url = 'http://'+$rootScope.ip+':8080/api/events/page/';
+          results.url = 'http://'+$rootScope.ip+'/api/events/page/';
               break;
           case "A venir":
-          results.url = 'http://'+$rootScope.ip+':8080/api/events/page/future/';
+          results.url = 'http://'+$rootScope.ip+'/api/events/page/future/';
               break;
           case "Passé":
-          results.url = 'http://'+$rootScope.ip+':8080/api/events/page/past/';
+          results.url = 'http://'+$rootScope.ip+'/api/events/page/past/';
               break;
       }
     }else{
-      results. url ='http://'+$rootScope.ip+':8080/api/events/page/category/';
+      results. url ='http://'+$rootScope.ip+'/api/events/page/category/';
     }
 
 
@@ -72,7 +72,7 @@ $scope.editSelectValue = function(mySelect){
   $ionicNavBarDelegate.showBackButton(true);
   $scope.categories = [];
 
-  $http.get("http://"+$rootScope.ip+":8080/api/categories").then(function (res){
+  $http.get("http://"+$rootScope.ip+"/api/categories").then(function (res){
     console.log("user infos "+res.data.title);
 $scope.categories =  res.data;
   },function(err){
@@ -81,7 +81,7 @@ $scope.categories =  res.data;
 
   $scope.saveCategorie = function(data){
     console.log("Categorie");
-    $http.post("http://"+$rootScope.ip+":8080/api/categories",data).then(function (res){
+    $http.post("http://"+$rootScope.ip+"/api/categories",data).then(function (res){
       console.log("user infos "+res.data.title);
       $state.go($state.current, {}, {reload: true});
 
@@ -94,7 +94,7 @@ $scope.categories =  res.data;
 
   $scope.delete = function(cat) {
 console.log(cat);
-    $http.delete("http://"+$rootScope.ip+":8080/api/categories/"+cat._id).then(function (res){
+    $http.delete("http://"+$rootScope.ip+"/api/categories/"+cat._id).then(function (res){
 
       $state.go($state.current, {}, {reload: true});
     },function(err){
@@ -140,7 +140,7 @@ console.log(cat);
       var data ={
         title:res
       }
-      $http.put("http://"+$rootScope.ip+":8080/api/categories/"+cat._id,data).then(function (res){
+      $http.put("http://"+$rootScope.ip+"/api/categories/"+cat._id,data).then(function (res){
 
         $state.go($state.current, {}, {reload: true});
       },function(err){
@@ -165,7 +165,7 @@ console.log(cat);
   var categories = [];
   $scope.selectables = [];
 
-  $http.get("http://"+$rootScope.ip+":8080/api/categories").then(function (res){
+  $http.get("http://"+$rootScope.ip+"/api/categories").then(function (res){
     console.log("user infos "+res.data.title);
 
     for (var i = 0; i < res.data.length; i++) {
@@ -181,22 +181,19 @@ console.log(cat);
 
 
   $scope.saveEvent = function(data){
-//$base64.encode(data.image.data)
-var reader = new FileReader();
- var img = reader.readAsDataURL(data.image);
-  console.log("image is " + img);
+
   data.date =   $filter("date")(data.date, 'yyyy-MM-dd');
   console.log(data.date);
 
     if($stateParams.event == null){
-      $http.post("http://"+$rootScope.ip+":8080/api/events",data).then(function (res){
+      $http.post("http://"+$rootScope.ip+"/api/events",data).then(function (res){
         console.log("user infos "+res.data.title);
         $state.go('dash')
       },function(err){
         console.error('err post' ,err);
       })
     }else{
-      $http.put("http://"+$rootScope.ip+":8080/api/events/"+$scope.event._id,data).then(function (res){
+      $http.put("http://"+$rootScope.ip+"/api/events/"+$scope.event._id,data).then(function (res){
         console.log("user infos "+res.data.title);
         $state.go('dash')
       },function(err){
@@ -214,7 +211,7 @@ var reader = new FileReader();
   $scope.login = function(data){
     data.password =CryptoJS.MD5(data.password).toString();
 
-    $http.post("http://"+$rootScope.ip+":8080/api/auth/login",data).then(function (res){
+    $http.post("http://"+$rootScope.ip+"/api/auth/login",data).then(function (res){
 
 
       console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
@@ -248,12 +245,12 @@ var reader = new FileReader();
   $scope.save = function(data){
     console.log("clicked");
     data.password =CryptoJS.MD5(data.password).toString();
-    $http.post("http://"+$rootScope.ip+":8080/api/users",data).then(function (res){
+    $http.post("http://"+$rootScope.ip+"/api/users",data).then(function (res){
 
       console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
 
 
-      $http.post("http://"+$rootScope.ip+":8080/api/auth/login",data).then(function (res){
+      $http.post("http://"+$rootScope.ip+"/api/auth/login",data).then(function (res){
 
 
         console.log("user infos "+res.data.nom+"  "+res.data.prenom+"   "+res.data._id);
@@ -289,7 +286,7 @@ var filter = {
 }
 
 if(filter.url ==null){
-  url = 'http://'+$rootScope.ip+':8080/api/events/page/';
+  url = 'http://'+$rootScope.ip+'/api/events/page/';
 }else{
   url = filter.url;
 }
@@ -352,7 +349,7 @@ $scope.page ++;
   }
 
   $scope.logout = function(data){
-    $http.post("http://"+$rootScope.ip+":8080/api/auth/logout").then(function (res){
+    $http.post("http://"+$rootScope.ip+"/api/auth/logout").then(function (res){
       $state.go('login')
     },function(err){
       console.error('err post' ,err);
@@ -364,7 +361,7 @@ $scope.page ++;
   }
 
   $scope.saveEvent = function(data){
-    $http.post("hhttp://"+$rootScope.ip+":8080/api/events",data).then(function (res){
+    $http.post("hhttp://"+$rootScope.ip+"/api/events",data).then(function (res){
       $scope.events = data;
 
       console.log("eventsCréer " + data[0].desc);
@@ -378,7 +375,7 @@ $scope.page ++;
 
   $scope.saveCategorie = function(data){
     console.log("Badini");
-    $http.post("http://"+$rootScope.ip+":8080/api/categories",data).then(function (res){
+    $http.post("http://"+$rootScope.ip+"/api/categories",data).then(function (res){
       $state.go('dash')
     },function(err){
       console.error('err post' ,err);
@@ -450,7 +447,7 @@ $scope.page ++;
   $scope.participer = function(event){
 
     if(particips==false){
-      $http.put("http://"+$rootScope.ip+":8080/api/events/"+event._id+"/addParticipant").then(function (res){
+      $http.put("http://"+$rootScope.ip+"/api/events/"+event._id+"/addParticipant").then(function (res){
         console.log(event._id );
         console.log(event.title );
         $state.go($state.current, {}, {reload: true});
@@ -460,7 +457,7 @@ $scope.page ++;
         console.error('err post' ,err);
       })
     }else{
-      $http.put("http://"+$rootScope.ip+":8080/api/events/"+event._id+"/removeParticipant").then(function (res){
+      $http.put("http://"+$rootScope.ip+"/api/events/"+event._id+"/removeParticipant").then(function (res){
         console.log(event._id );
         console.log(event.title );
         $state.go($state.current, {}, {reload: true});
@@ -477,7 +474,7 @@ $scope.page ++;
 
   $scope.delete = function(id){
     console.log("delete clicked event id is :"+id);
-    $http.delete("http://"+$rootScope.ip+":8080/api/events/"+id).then(function (res){
+    $http.delete("http://"+$rootScope.ip+"/api/events/"+id).then(function (res){
       console.log("event deleted");
       $state.go('dash');
 

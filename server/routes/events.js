@@ -1,6 +1,6 @@
 var formData = require("express-form-data").json();
 var router = require('express').Router();
-var bodyparser = require('body-parser').json();
+var bodyparser = require('body-parser').json({limit: '5mb'});
 var multer = require('multer');
 var upload = multer({dest: './uploads/'});
 module.exports = function(app){

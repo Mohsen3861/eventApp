@@ -27,18 +27,14 @@
             <br><br>
 <label class="item">
             <div > Logo
-            <input style="float:right" type="file" placeholder="Image" data-bind-file="" data-ng-model="event.image" style="float:right;">
+			<input type="file" ng-model="event.img.data" accept="image/*" app-filereader />
+
+           <!-- <input style="float:right" type="file" placeholder="Image" data-bind-file="" data-ng-model="event.image" style="float:right;"> -->
             </div>
   </label>
-  <img class="full-image" ngf-src="theFile" >
+			 <img class="full-image padding" ng-src="{{event.img.data}}"  /><br />
 
 
-<div>{{event.image.name}}</div>
-  <div ng-show="theFile">
-    {{theFile.name}}<br />
-    {{theFile.size}} byte(s)<br/>
-    {{theFile.type}}
-</div>
 
 
   </div>

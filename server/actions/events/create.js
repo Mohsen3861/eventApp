@@ -36,7 +36,7 @@ app.models.Event.count( function(err, c) {
                category:req.body.category,
                num :count+1,
                img: {
-                 data :base64Image
+                 data :req.body.img.data
                }
 
            });

@@ -16,7 +16,7 @@
             <div id="buttonDelete" class="icon ion-android-delete" style="float:right" ng-click="delete(event._id)"></div>
             <div id="buttonEdit" class="icon ion-edit" style="float:left" ng-click="edit()"></div>
           <h2>{{event.date}}</h2>
-          <img class="full-image" src="img/event.png" >
+          <img class="full-image" ng-src="{{event.img.data}}" >
           <p>
           {{event.desc}}
           </p>
